@@ -36,3 +36,20 @@ Please stick to the Product Requirements. You should not implement authorisation
 - Make your API public. Deploy it using the service of your choice (e.g. AWS, Heroku, Digital Ocean...)
 - Create a pull request
 - Please complete your working solution within 7 days of receiving this challenge, and be sure to notify us when it is ready for review.
+
+## Run tests
+If you have no running Postgres, you may run it in the Docker:
+```
+docker build . -f postgres.Dockerfile --tag anti_theft_postgres_test
+docker run anti_theft_postgres_test
+```
+
+Grep Postgres IP address 
+
+`docker inspect {postgres_container_id} | grep IPAddress` 
+
+and execute
+
+`export DB_HOST={postgres_container_ip} && npm t`
+
+where `postgres_container_id` - container ID, `postgres_container_ip` - value from the previous command.

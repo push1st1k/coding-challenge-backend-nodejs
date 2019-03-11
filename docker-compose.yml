@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: 'postgres:11-alpine'
+    container_name: postgres-bike
+    restart: always
+    environment:
+      POSTGRES_DB: anti_theft
+      POSTGRES_PASSWORD: passwd
+    ports:
+      - '5432:5432'
+  api:
+    build: .
+    command: ["npm", "start"]
+    depends_on:
+      - postgres
+    container_name: api-bike
+    restart: always
+    environment:
+      DB_NAME: anti_theft
+      DB_HOST: postgres
+      DB_PASSWORD: passwd
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./:/usr/src/app
